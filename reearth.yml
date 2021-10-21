@@ -1,0 +1,11 @@
+id: reearth-plugin-example
+name: Tetete Plug-in
+version: 0.0.1
+extensions:
+  - id: mylocation
+    type: widget
+    name: My Location widget
+    widgetLayout:
+      extendable:
+        horizontally: true
+        vertically: true
