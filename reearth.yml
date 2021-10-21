@@ -1,5 +1,5 @@
-id: reearth-plugin-example2
-name: Example Plug-in
+id: reearth-plugin-mylocation
+name: Mylocation Plug-in
 version: 1.0.0
 extensions:
   - id: mylocation
