@@ -28,19 +28,23 @@ const html = `
 
   let lat, lng, accuracy;
 
+
   
-  const update = () => {
-    function success(pos){
-      lat = pos.coords.latitude;
-      lng = pos.coords.longitude;
-      accuracy = pos.coords.accuracy;
-    }
-    
-    function fail(pos){
-      alert('位置情報の取得に失敗しました。エラーコード：');
-    }
+    const update = () => {
+      navigator.geolocation.getCurrentPosition(success,fail) 
+      function success(pos){
+        lat = pos.coords.latitude;
+        lng = pos.coords.longitude;
+        accuracy = pos.coords.accuracy;
+      }
+      function fail(pos){
+        alert('位置情報の取得に失敗しました。エラーコード：');
+      }
   
-    return navigator.geolocation.getCurrentPosition(success,fail);
+      document.getElementById("lat").textContent = lat;
+      document.getElementById("lon").textContent = lng;
+      document.getElementById("accuracy").textContent = accuracy;
+    //return
   };
   //プラグイン側からreearthにメッセージを送っている
   const send = () => {
