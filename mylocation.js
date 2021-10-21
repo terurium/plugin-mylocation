@@ -57,26 +57,6 @@ const html = `
   document.getElementById("update").addEventListener("click", update);
   document.getElementById("jump").addEventListener("click", send);
 
-  const updateExtended = e => {
-    if (e && e.horizontally) {
-      document.documentElement.classList.add("extendedh");
-    } else {
-      document.documentElement.classList.remove("extendedh");
-    }
-    if (e && e.vertically) {
-      document.documentElement.classList.add("extendedv");
-    } else {
-      document.documentElement.classList.remove("extendedv");
-    }
-  };
-
-  addEventListener("message", e => {
-    if (e.source !== parent || !e.data.extended) return;
-    updateExtended(e.data.extended);
-  });
-
-  updateExtended(${JSON.stringify(reearth.widget.extended || null)});
-  update();
 </script>
 `;
 //こっから上はiframeで実行
