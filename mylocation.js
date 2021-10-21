@@ -1,22 +1,104 @@
 const html = `
-  <button id="send">Send message</button>
-  <p>Message arrival: <span id="msg"></span></p>
-  <script>
-    window.addEventListener("message", function (e) {
-      if (e.source !== parent) return;
-      document.getElementById("msg").textContent = e.data;
-    });
+<style>
+  body { margin: 0; }
+  .extendedh { width: 100%; }
+  .extendedv { height: 100%; }
+  #wrapper {
+    border: 2px solid blue;
+    border-radius: 5px;
+    background-color: rgba(111, 111, 111, 0.5);
+    box-sizing: border-box;
+    width: 300px;
+  }
+  .extendedh body, .extendedh #wrapper { width: 100%; }
+  .extendedv body, .extendedv #wrapper { height: 100%; }
+</style>
+<div id="wrapper">
+  <h1>My location</h1>
+  <p>Latitude: <span id="lat">-</span></p>
+  <p>Longitude: <span id="lon">-</span></p>
+  <p>Accuracy: <span id="accuracy">-</span>km</p>
+  <p>
+    <button id="update">Update</button>
+    <button id="jump">Jump</button>
+  </p>
+</div>
+<script>
 
-    document.getElementById("send").addEventListener("click", function() {
-          parent.postMessage("response", "*");
-    });
-  </script>
+
+  let lat, lng, accuracy;
+
+  function success(pos){
+    lat = pos.coords.latitude;
+    lng = pos.coords.longitude;
+    accuracy = pos.coords.accuracy;
+
+    document.getElementById("lat").textContent = lat;
+    document.getElementById("lon").textContent = lng;
+    document.getElementById("accuracy").textContent = accuracy;
+}
+  function fail(pos){
+    alert('位置情報の取得に失敗しました。エラーコード：');
+  }
+  
+    const update = () => {
+      if(navigator.geolocation){
+        return navigator.geolocation.getCurrentPosition(success,fail);
+      }else{
+        console.log("navigator.geolocation error");
+      }
+  };
+  //プラグイン側からreearthにメッセージを送っている
+  const send = () => {
+    // WORKSHOP: HERE IS CODE TO SEND DATA TO RE:EARTH
+    parent.postMessage({ lat, lng, accuracy }, "*");
+  };
+
+  document.getElementById("update").addEventListener("click", update);
+  document.getElementById("jump").addEventListener("click", send);
+
+  const updateExtended = e => {
+    if (e && e.horizontally) {
+      document.documentElement.classList.add("extendedh");
+    } else {
+      document.documentElement.classList.remove("extendedh");
+    }
+    if (e && e.vertically) {
+      document.documentElement.classList.add("extendedv");
+    } else {
+      document.documentElement.classList.remove("extendedv");
+    }
+  };
+
+  addEventListener("message", e => {
+    if (e.source !== parent || !e.data.extended) return;
+    updateExtended(e.data.extended);
+  });
+
+  updateExtended(${JSON.stringify(reearth.widget.extended || null)});
+  update();
+</script>
 `;
+//こっから上はiframeで実行
+//こっから下はweb assembly
 
 reearth.ui.show(html);
-
-reearth.on("message", msg => {
-  console.log("message received:", msg);
+reearth.on("update", () => {
+  reearth.ui.postMessage({
+    extended: reearth.widget.extended
+  });
 });
 
-reearth.ui.postMessage("hello world");
+// WORKSHOP: HERE IS CODE TO MOVE CAMERA
+reearth.on("message", msg => {
+  reearth.visualizer.camera.flyTo({
+    lat: msg.lat,
+    lng: msg.lng,
+    height: 500,
+    heading: 0,
+    pitch: -Math.PI/2,
+    roll: 0,
+  }, {
+    duration: 2
+  });
+});
