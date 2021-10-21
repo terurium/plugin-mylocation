@@ -17,7 +17,7 @@ const html = `
   <h1>My location</h1>
   <p>Latitude: <span id="lat">-</span></p>
   <p>Longitude: <span id="lon">-</span></p>
-  <p>Accuracy: <span id="accuracy">-</span>km</p>
+  <p>Accuracy: <span id="accuracy">-</span></p>
   <p>
     <button id="update">Update</button>
     <button id="jump">Jump</button>
@@ -76,6 +76,7 @@ const html = `
   });
 
   updateExtended(${JSON.stringify(reearth.widget.extended || null)});
+  console.log(${JSON.stringify(reearth.widget.extended || null)});
   update();
 </script>
 `;
@@ -94,7 +95,7 @@ reearth.on("message", msg => {
   reearth.visualizer.camera.flyTo({
     lat: msg.lat,
     lng: msg.lng,
-    height: 500,
+    height: 1000,
     heading: 0,
     pitch: -Math.PI/2,
     roll: 0,
