@@ -38,7 +38,7 @@ const html = `
     document.getElementById("accuracy").textContent = accuracy;
 }
   function fail(pos){
-    alert('位置情報の取得に失敗しました。エラーコード：');
+    alert('位置情報の取得に失敗しました。testエラーコード：');
   }
   
     const update = () => {
