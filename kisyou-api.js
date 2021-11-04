@@ -52,7 +52,7 @@ const html = `
 <script>
 fetch("https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json")
   .then(r => r.json())
-  .then(wether =>{
+  .then(weather =>{
       console.log(weather);
       // 特定の地域(今回は東京)だけ選択して変数に詰め直す
       let area = weather[0].timeSeries[0].areas[0];
