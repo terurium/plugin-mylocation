@@ -6,5 +6,5 @@ extensions:
     type: widget
     name: My Location Widget
   - id: kisyou-api
-    type: widget
+    type: block
     name: Kisyou API block

@@ -10,8 +10,6 @@ const html = `
     box-sizing: border-box;
     width: 300px;
   }
-  .extendedh body, .extendedh #wrapper { width: 100%; }
-  .extendedv body, .extendedv #wrapper { height: 100%; }
 </style>
 <div id="wrapper">
 <table>
