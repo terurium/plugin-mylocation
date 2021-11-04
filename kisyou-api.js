@@ -53,7 +53,7 @@ const cb = (block) => {
   console.log(block);
   if (block && block.property && block.property.default && block.property.default.kisyou-area-code) {
     area_code = block.property.default.kisyou-area-code;
-    console.log(area_code);
+    console.log("input code"+area_code);
   } else {
     console.log("no area code");
   }
@@ -61,6 +61,7 @@ const cb = (block) => {
 
 addEventListener("message", e => {
   if (e.source !== parent) return;
+  console.log("e.data?"+e.data);
   cb(e.data);
 });
 
