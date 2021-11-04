@@ -5,16 +5,6 @@ extensions:
   - id: mylocation
     type: widget
     name: My Location Widget
-  - id: text2
-    type: widget
-    name: Text2 block
-    schema:
-      groups:
-        - id: default
-          fields:
-            - id: text
-              type: string
-              title: Text
   - id: kisyou-api
     type: widget
     name: Kisyou API block
