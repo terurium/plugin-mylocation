@@ -18,10 +18,3 @@ extensions:
   - id: kisyou-api
     type: widget
     name: Kisyou API block
-    schema:
-      groups:
-        - id: default
-          fields:
-            - id: text
-              type: string
-              title: Text
