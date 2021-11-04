@@ -50,9 +50,7 @@ const html = `
 </table>
 </div>
 <script>
-let lat, lng, alt;
-const update = () => {
-  return fetch("https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json")
+fetch("https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json")
   .then(r => r.json())
   .then(wether =>{
       console.log(weather);
@@ -80,9 +78,7 @@ const update = () => {
         area2.temps[0];
       document.getElementById("todayMinTemp").lastElementChild.textContent =
         area2.temps[1];
-    }
-    
-    )
+    })
 </script>
 `;
 reearth.ui.show(html);
