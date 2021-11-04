@@ -12,6 +12,6 @@ extensions:
       groups:
         - id: default
           fields:
-            - id: kisyou-area-code
+            - id: code1
               type: string
               title: Area code
