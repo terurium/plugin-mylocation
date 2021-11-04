@@ -8,7 +8,7 @@ const html = `
     border-radius: 5px;
     background-color: rgba(111, 111, 111, 0.5);
     box-sizing: border-box;
-    width: 300px;
+    /*width: 300px;*/
   }
 </style>
 <div id="wrapper">
@@ -48,7 +48,25 @@ const html = `
 </table>
 </div>
 <script>
-fetch("https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json")
+let area_code = "130000";
+const cb = (block) => {
+  console.log(block);
+  if (block && block.property && block.property.default && block.property.default.kisyou-area-code) {
+    area_code = block.property.default.kisyou-area-code;
+  } else {
+    console.log("no area code");
+  }
+};
+
+addEventListener("message", e => {
+  if (e.source !== parent) return;
+  cb(e.data);
+});
+
+cb(${JSON.stringify(reearth.block)});
+
+
+fetch("https://www.jma.go.jp/bosai/forecast/data/forecast/"+area_code+".json")
   .then(r => r.json())
   .then(weather =>{
       console.log(weather);
@@ -80,3 +98,7 @@ fetch("https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json")
 </script>
 `;
 reearth.ui.show(html);
+
+reearth.on("update", () => {
+  reearth.ui.postMessage(reearth.block);
+});

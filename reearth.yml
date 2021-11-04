@@ -8,3 +8,10 @@ extensions:
   - id: kisyou-api
     type: block
     name: Kisyou API block
+    schema:
+      groups:
+        - id: default
+          fields:
+            - id: kisyou-area-code
+              type: string
+              title: Area code
