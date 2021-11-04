@@ -51,9 +51,9 @@ const html = `
 let area_code = "130000";
 const cb = (block) => {
   console.log(block);
-  if (block && block.property && block.property.default && block.property.default.kisyou-area-code) {
-    area_code = block.property.default.kisyou-area-code;
-    console.log("input code"+area_code);
+  if (block && block.property && block.property.default && block.property.default.code1) {
+    area_code = block.property.default.code1;
+    console.log("input code"+code1);
   } else {
     console.log("no area code");
   }
