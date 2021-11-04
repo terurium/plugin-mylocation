@@ -53,6 +53,7 @@ const cb = (block) => {
   console.log(block);
   if (block && block.property && block.property.default && block.property.default.kisyou-area-code) {
     area_code = block.property.default.kisyou-area-code;
+    console.log(area_code);
   } else {
     console.log("no area code");
   }
