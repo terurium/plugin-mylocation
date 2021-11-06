@@ -13,5 +13,5 @@ extensions:
         - id: default
           fields:
             - id: code1
-              type: string
+              type: number
               title: Area code
