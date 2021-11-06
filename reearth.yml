@@ -5,13 +5,13 @@ extensions:
   - id: mylocation
     type: widget
     name: My Location Widget
-  - id: text2
-    type: widget
-    name: Text2 block
+  - id: kisyou-api
+    type: block
+    name: Kisyou API block
     schema:
       groups:
         - id: default
           fields:
-            - id: text
-              type: string
-              title: Text
+            - id: code1
+              type: number
+              title: Area code
