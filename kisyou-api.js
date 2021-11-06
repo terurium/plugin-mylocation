@@ -97,6 +97,9 @@ fetch("https://www.jma.go.jp/bosai/forecast/data/forecast/"+area_code+".json")
       document.getElementsByClassName("todayMinTemp")[0].lastElementChild.textContent =
         area2.temps[1];
     })
+    .catch(error => {
+      console.error('通信に失敗しました', error);
+    })
 </script>
 `;
 reearth.ui.show(html);
