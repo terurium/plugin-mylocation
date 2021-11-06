@@ -48,11 +48,50 @@ const html = `
 </table>
 </div>
 <script>
-let area_code = "130000";
 const cb = (block) => {
   console.log(block);
+  let area_code = "130000";
   if (block && block.property && block.property.default && block.property.default.code1) {
     area_code = block.property.default.code1+ '';
+
+    fetch("https://www.jma.go.jp/bosai/forecast/data/forecast/"+area_code+".json")
+    .then(r => r.json())
+    .then(weather =>{
+        console.log(weather);
+        // 特定の地域(今回は東京)だけ選択して変数に詰め直す
+        let area = weather[0].timeSeries[0].areas[0];
+        // 最低最高気温
+        let area2 = weather[0].timeSeries[2].areas[0];
+        console.log("areaだよ");
+        console.log(area2);
+        // 発表者と報告日時の情報を画面に書き出す
+        document.getElementsByClassName("publishingOffice")[0].lastElementChild.textContent =
+          weather[0].publishingOffice;
+        document.getElementsByClassName("reportDatetime")[0].lastElementChild.textContent =
+          weather[0].reportDatetime;
+        // 特定地域の情報を画面に書き出す
+        document.getElementsByClassName("targetArea")[0].lastElementChild.textContent =
+          area.area.name;
+        document.getElementsByClassName("today")[0].lastElementChild.textContent =
+          area.weathers[0];
+        document.getElementsByClassName("tomorrow")[0].lastElementChild.textContent =
+          area.weathers[1];
+        document.getElementsByClassName("dayAfterTomorrow")[0].lastElementChild.textContent =
+          area.weathers[2];
+        document.getElementsByClassName("todayMaxTemp")[0].lastElementChild.textContent =
+          area2.temps[0];
+        document.getElementsByClassName("todayMinTemp")[0].lastElementChild.textContent =
+          area2.temps[1];
+      })
+      .catch(error => {
+        console.error('通信に失敗しました', error);
+      })
+
+
+
+
+
+
   } else {
     console.log("no area code");
   }
@@ -68,38 +107,7 @@ addEventListener("message", e => {
 cb(${JSON.stringify(reearth.block)});
 
 
-fetch("https://www.jma.go.jp/bosai/forecast/data/forecast/"+area_code+".json")
-  .then(r => r.json())
-  .then(weather =>{
-      console.log(weather);
-      // 特定の地域(今回は東京)だけ選択して変数に詰め直す
-      let area = weather[0].timeSeries[0].areas[0];
-      // 最低最高気温
-      let area2 = weather[0].timeSeries[2].areas[0];
-      console.log("areaだよ");
-      console.log(area2);
-      // 発表者と報告日時の情報を画面に書き出す
-      document.getElementsByClassName("publishingOffice")[0].lastElementChild.textContent =
-        weather[0].publishingOffice;
-      document.getElementsByClassName("reportDatetime")[0].lastElementChild.textContent =
-        weather[0].reportDatetime;
-      // 特定地域の情報を画面に書き出す
-      document.getElementsByClassName("targetArea")[0].lastElementChild.textContent =
-        area.area.name;
-      document.getElementsByClassName("today")[0].lastElementChild.textContent =
-        area.weathers[0];
-      document.getElementsByClassName("tomorrow")[0].lastElementChild.textContent =
-        area.weathers[1];
-      document.getElementsByClassName("dayAfterTomorrow")[0].lastElementChild.textContent =
-        area.weathers[2];
-      document.getElementsByClassName("todayMaxTemp")[0].lastElementChild.textContent =
-        area2.temps[0];
-      document.getElementsByClassName("todayMinTemp")[0].lastElementChild.textContent =
-        area2.temps[1];
-    })
-    .catch(error => {
-      console.error('通信に失敗しました', error);
-    })
+
 </script>
 `;
 reearth.ui.show(html);
