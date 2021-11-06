@@ -50,8 +50,8 @@ const html = `
 <script>
 const cb = (block) => {
   console.log(block);
-  let area_code = "130000";
   if (block && block.property && block.property.default && block.property.default.code1) {
+    let area_code = "130000";
     area_code = block.property.default.code1+ '';
 
     fetch("https://www.jma.go.jp/bosai/forecast/data/forecast/"+area_code+".json")
