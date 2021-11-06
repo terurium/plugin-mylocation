@@ -11,37 +11,37 @@ const html = `
     /*width: 300px;*/
   }
 </style>
-<div id="wrapper">
+<div class="wrapper">
 <table>
-<tr id="publishingOffice">
+<tr class="publishingOffice">
   <th>発表者</th>
   <td></td>
 </tr>
-<tr id="reportDatetime">
+<tr class="reportDatetime">
   <th>報告日時</th>
   <td></td>
 </tr>
-<tr id="targetArea">
+<tr class="targetArea">
   <th>対象地域</th>
   <td></td>
 </tr>
-<tr id="today">
+<tr class="today">
   <th>今日の天気</th>
   <td></td>
 </tr>
-<tr id="tomorrow">
+<tr class="tomorrow">
   <th>明日の天気</th>
   <td></td>
 </tr>
-<tr id="dayAfterTomorrow">
+<tr class="dayAfterTomorrow">
   <th>明後日の天気</th>
   <td></td>
 </tr>
-<tr id="todayMaxTemp">
+<tr class="todayMaxTemp">
   <th>今日の最低気温</th>
   <td></td>
 </tr>
-<tr id="todayMinTemp">
+<tr class="todayMinTemp">
   <th>今日の最高気温</th>
   <td></td>
 </tr>
@@ -60,6 +60,7 @@ const cb = (block) => {
 
 addEventListener("message", e => {
   if (e.source !== parent) return;
+  console.log("e.dataが何なのか見たい");
   console.log(JSON.stringify(e.data));
   cb(e.data);
 });
@@ -78,22 +79,22 @@ fetch("https://www.jma.go.jp/bosai/forecast/data/forecast/"+area_code+".json")
       console.log("areaだよ");
       console.log(area2);
       // 発表者と報告日時の情報を画面に書き出す
-      document.getElementById("publishingOffice").lastElementChild.textContent =
+      document.getElementsByClassName("publishingOffice")[0].lastElementChild.textContent =
         weather[0].publishingOffice;
-      document.getElementById("reportDatetime").lastElementChild.textContent =
+      document.getElementsByClassName("reportDatetime")[0].lastElementChild.textContent =
         weather[0].reportDatetime;
       // 特定地域の情報を画面に書き出す
-      document.getElementById("targetArea").lastElementChild.textContent =
+      document.getElementsByClassName("targetArea")[0].lastElementChild.textContent =
         area.area.name;
-      document.getElementById("today").lastElementChild.textContent =
+      document.getElementsByClassName("today")[0].lastElementChild.textContent =
         area.weathers[0];
-      document.getElementById("tomorrow").lastElementChild.textContent =
+      document.getElementsByClassName("tomorrow")[0].lastElementChild.textContent =
         area.weathers[1];
-      document.getElementById("dayAfterTomorrow").lastElementChild.textContent =
+      document.getElementsByClassName("dayAfterTomorrow")[0].lastElementChild.textContent =
         area.weathers[2];
-      document.getElementById("todayMaxTemp").lastElementChild.textContent =
+      document.getElementsByClassName("todayMaxTemp")[0].lastElementChild.textContent =
         area2.temps[0];
-      document.getElementById("todayMinTemp").lastElementChild.textContent =
+      document.getElementsByClassName("todayMinTemp")[0].lastElementChild.textContent =
         area2.temps[1];
     })
 </script>
